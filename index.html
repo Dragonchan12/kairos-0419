@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Game Thing</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="assets/98.css?v=14" />
+  <link rel="stylesheet" href="style.css?v=14" />
+</head>
+
+<body class="windows98-desktop">
+
+<!--logon screen -->
+<div id="logon-screen">
+  <div class="lg-header"></div>
+  <div class="lg-body">
+    <div class="lg-left">
+      <img class="lg-flag" src="assets/windows_0.png" alt="">
+      <h1 class="lg-welcome">Last Night</h1>
+      <p class="lg-subtitle">Select an option to begin</p>
+    </div>
+    <div class="lg-right">
+      <ul class="lg-users">
+        <li class="lg-user" data-action="play">
+          <span class="lg-frame"><img src="assets/icons/explorer.png" alt=""></span>
+          <span class="lg-name">You</span>
+        </li>
+        <li class="lg-user" data-action="settings">
+          <span class="lg-frame"><img src="assets/icons/settings_gear.png" alt=""></span>
+          <span class="lg-name">Settings</span>
+        </li>
+        <li class="lg-user" data-action="credits">
+          <span class="lg-frame"><img src="assets/icons/credits_star.gif" alt=""></span>
+          <span class="lg-name">Credits</span>
+        </li>
+        <li class="lg-user" data-action="about">
+          <span class="lg-frame"><img src="assets/icons/about_info.png" alt=""></span>
+          <span class="lg-name">About</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="lg-footer">
+    <button class="btn lg-turnoff" id="lg-turnoff"><span class="lg-power">&#9211;</span>Turn off computer</button>
+  </div>
+
+  <!-- menu pane -->
+  <div class="lg-panel-wrap">
+    <div class="boot-panel" id="panel-settings">
+      <b>SETTINGS</b><br/><br/>
+      <div class="set-row"><label>Rain</label><input type="range" min="0" max="100" id="vol-rain"><span class="set-val" id="val-rain"></span></div>
+      <div class="set-row"><label>Dialogue</label><input type="range" min="0" max="100" id="vol-dialogue"><span class="set-val" id="val-dialogue"></span></div>
+      <div class="set-row"><label>Notify</label><input type="range" min="0" max="100" id="vol-notify"><span class="set-val" id="val-notify"></span></div>
+      <div class="set-row"><label>CRT Effect</label><input type="range" min="0" max="100" id="vol-crt"><span class="set-val" id="val-crt"></span></div>
+    </div>
+
+    <div class="boot-panel" id="panel-credits">
+      <b>CREDITS</b><br/><br/>
+      Design &amp; Direction: Ryu Schoppert<br/>
+      Programming: Ryu Schoppert<br/>
+      Writing (JP/EN): Ryu Schoppert<br/>
+      UI chrome courtesy of 98.css
+    </div>
+
+    <div class="boot-panel" id="panel-about">
+      <b>ABOUT</b><br/><br/>
+      It is the night of October 14th. Something strange is happening, its up to you to figure out what.<br/><br/>
+      The game is very intentionally vague in its guidance. The whole experience relies on you figuring stuff out.
+      <p>All characters are strictly fictional, any resemblance to real people or events is coincidence.</p>
+    </div>
+  </div>
+</div>
+<div id="shutdown-screen">It is now safe to turn off<br>your computer.<br><br><span style="font-size:13px;color:#666;">(click anywhere to power back on)</span></div>
+
+<!--big boy screen div -->
+<div id="screen">
+
+  <!-- desktop icons -->
+  <div class="desktop-icons">
+    <div class="icon" data-app="explorer"><div class="icon-img"><img src="assets/icons/explorer.png" alt=""></div><span>My Computer</span></div>
+    <div class="icon" data-app="browser"><div class="icon-img"><img src="assets/msie1_1.png" alt=""></div><span>Internet Explorer</span></div>
+    <div class="icon" data-app="chat"><div class="icon-img"><img src="assets/icons/chat.png" alt=""><img class="unread-badge" id="chat-badge" src="assets/icons/badge_excl.png" alt="!"></div><span>Chat Terminal</span></div>
+    <div class="icon" data-app="notepad"><div class="icon-img"><img src="assets/notepad-2.png" alt=""></div><span>Notepad</span></div>
+    <div class="icon" data-app="clock"><div class="icon-img"><img src="assets/icons/calendar.png" alt=""></div><span>Calendar</span></div>
+    <div class="icon" data-app="recycle"><div class="icon-img"><img src="assets/recycle_bin_empty-4.png" alt=""></div><span>Recycle Bin</span></div>
+    <div class="icon" data-app="phone"><div class="icon-img"><img src="assets/icons/phone_handset.png" onerror="this.style.visibility='hidden'" alt=""></div><span>Phone</span></div>
+  </div>
+
+  <!--browser windows-->
+  <div class="window app-window hidden" id="win-browser" style="width:560px;height:420px;top:70px;left:180px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">Internet Explorer</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);display:flex;flex-direction:column;padding:6px;">
+      <div class="browser-toolbar">
+        <button class="btn" id="nav-back" style="width:28px;" title="Back">&lt;</button>
+        <button class="btn" id="nav-fwd" style="width:28px;" title="Forward">&gt;</button>
+        <input type="text" class="url-bar" id="url-bar" value="cutecats.com" spellcheck="false" />
+        <button class="btn" id="nav-go" style="width:52px;">Go</button>
+      </div>
+      <iframe class="browser-frame" id="browser-frame" src="about:blank"></iframe>
+      <div class="browser-status">
+        <span id="browser-status-text">Ready</span>
+        <span><span class="loadbar-track"><span class="loadbar-fill" id="loadbar"></span></span><span class="loadbar-pct" id="loadbar-pct"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!--chat window -->
+  <div class="window app-window hidden" id="win-chat" style="width:460px;height:380px;top:90px;left:220px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">Kairos Net</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:0;display:flex;">
+      <div class="chat-sidebar" id="chat-sidebar"></div>
+      <div class="chat-main"><div class="chat-log" id="chat-log"></div></div>
+    </div>
+  </div>
+
+  <!-- file stuff -->
+  <div class="window app-window hidden" id="win-explorer" style="width:420px;height:340px;top:60px;left:150px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">My Computer: C:\</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:85%;padding:6px;background:white;display:flex;flex-direction:column;">
+      <div class="crumb-bar">
+        <button class="btn crumb-up" id="crumb-up" title="Up one folder">..</button>
+        <span class="crumb-path" id="crumb-path">C:\</span>
+      </div>
+      <div id="file-list" style="flex:1;"></div>
+      <div class="file-tools">
+        <button class="btn" id="file-new">New Text File</button>
+        <button class="btn" id="file-delete" disabled>Delete</button>
+        <span class="file-tool-hint" id="file-sel-name"></span>
+      </div>
+    </div>
+  </div>
+
+  <!--notepad stuff-->
+  <div class="window app-window hidden" id="win-notepad" style="width:420px;height:320px;top:110px;left:250px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text" id="notepad-title">Notepad</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:6px;display:flex;flex-direction:column;">
+      <textarea class="notepad-area" id="notepad-area" spellcheck="false"></textarea>
+      <div class="file-tools">
+        <button class="btn" id="notepad-save">Save</button>
+        <button class="btn" id="notepad-new">New</button>
+        <button class="btn" id="notepad-close-window">Close</button>
+        <span class="file-tool-hint">Saving writes to the folder you are in.</span>
+      </div>
+    </div>
+  </div>
+
+  <!--calender stuff -->
+  <div class="window app-window hidden" id="win-clock" style="width:280px;height:300px;top:120px;left:300px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">Calendar</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:8px;text-align:center;">
+      <div id="cal-clock" style="font-size:22px;font-family:'Courier New',monospace;margin-bottom:6px;"></div>
+      <table cellspacing="1" cellpadding="3" style="font-size:11px;width:100%;text-align:center;" id="cal-grid"></table>
+      <p style="font-size:10px;color:#555;margin-top:6px;">October 2002</p>
+    </div>
+  </div>
+
+  <!--recycle bin-->
+  <div class="window app-window hidden" id="win-recycle" style="width:340px;height:260px;top:100px;left:200px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">Recycle Bin</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:6px;background:white;display:flex;flex-direction:column;">
+      <div id="recycle-list" style="flex:1;"></div>
+      <div class="file-tools">
+        <button class="btn" id="bin-restore" disabled>Restore</button>
+        <span class="file-tool-hint">Restored files go back where they came from.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- image viewer-->
+  <div class="window app-window hidden" id="win-image" style="width:400px;height:360px;top:80px;left:220px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text" id="image-title">Image Viewer</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:6px;display:flex;align-items:center;justify-content:center;background:#404040;">
+      <img id="image-view" alt="" style="max-width:100%;max-height:100%;image-rendering:auto;">
+    </div>
+  </div>
+
+  <!--media player-->
+  <div class="window app-window hidden" id="win-media" style="width:340px;height:170px;top:120px;left:300px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text" id="media-title">Media Player</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:8px;display:flex;flex-direction:column;gap:6px;">
+      <div style="font-size:12px;" id="media-file"></div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn" id="media-play" style="width:70px;">▶ Play</button>
+        <button class="btn" id="media-stop" style="width:70px;">■ Stop</button>
+        <span style="font-size:11px;color:#555;align-self:center;" id="media-time">0:00 / 0:00</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;"><label style="font-size:11px;width:44px;">Volume</label><input type="range" min="0" max="100" value="80" id="media-vol" style="flex:1;"></div>
+    </div>
+  </div>
+
+<!--  dialogue bar-->
+  <div id="dialogue-bar">
+    <div class="dlg-inner">
+      <div class="dlg-speaker" id="dlg-speaker"></div>
+      <div class="dlg-jp" id="dlg-jp"></div>
+      <div class="dlg-en" id="dlg-en"></div>
+      <div class="dlg-hint" id="dlg-hint">click to continue</div>
+    </div>
+  </div>
+
+  <!--phone: a real handset on the desk, touch-tone, the line is shared with the whole house -->
+  <div class="window app-window hidden" id="win-phone" style="width:300px;height:330px;top:150px;left:120px;">
+    <div class="title-bar" data-drag>
+      <div class="title-bar-text">Phone: Kitchen</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="height:calc(100% - 34px);padding:8px;display:flex;flex-direction:column;gap:6px;">
+      <input type="text" class="ph-display" id="phone-display" readonly spellcheck="false" placeholder="" />
+      <div class="ph-line-state" id="phone-line-state">Line open.</div>
+      <div class="ph-pad" id="phone-pad">
+        <button class="btn" data-key="1">1</button><button class="btn" data-key="2">2</button><button class="btn" data-key="3">3</button>
+        <button class="btn" data-key="4">4</button><button class="btn" data-key="5">5</button><button class="btn" data-key="6">6</button>
+        <button class="btn" data-key="7">7</button><button class="btn" data-key="8">8</button><button class="btn" data-key="9">9</button>
+        <button class="btn" data-key="*">*</button><button class="btn" data-key="0">0</button><button class="btn" data-key="#">#</button>
+      </div>
+      <div class="file-tools">
+        <button class="btn" id="phone-dial">Dial</button>
+        <button class="btn" id="phone-clear">Clear</button>
+        <button class="btn" id="phone-end">Hang up</button>
+      </div>
+      <div class="ph-quick" id="phone-quick"></div>
+    </div>
+  </div>
+
+  <!--ending: quiet, word by word, then it stops happening -->
+  <div id="ending-screen">
+    <div class="ending-inner">
+      <div class="ending-speaker" id="ending-speaker"></div>
+      <div class="ending-jp" id="ending-jp"></div>
+      <div class="ending-en" id="ending-en"></div>
+    </div>
+  </div>
+
+  <!-- taskbar -->
+  <div class="taskbar">
+    <button class="btn start-btn"><img src="assets/windows_1.png" style="width:16px;height:14px;vertical-align:-2px;">&nbsp;<strong>Start</strong></button>
+    <div class="taskbar-divider"></div>
+    <div class="taskbar-apps" id="taskbar-apps"></div>
+    <div class="status-bar-field tray-clock" id="tray-clock">10/14/02 6:00 PM</div>
+  </div>
+
+  <!-- start menu -->
+  <div class="window" id="start-menu">
+    <div class="title-bar"><div class="title-bar-text">Programs</div></div>
+    <div style="background:#c0c0c0;padding:2px;">
+      <div class="start-item" data-app="browser">Internet Explorer</div>
+      <div class="start-item" data-app="chat">Chat Terminal</div>
+      <div class="start-item" data-app="explorer">My Computer</div>
+      <div class="start-item" data-app="notepad">Notepad</div>
+      <div class="start-item" data-app="clock">Calendar</div>
+      <div class="start-item" data-app="phone">Phone</div>
+      <div class="start-sep"></div>
+      <div class="start-item" id="menu-return">Return to Menu</div>
+    </div>
+  </div>
+
+</div><!-- screen div end -->
+
+<div id="crt-overlay"></div>
+<div id="white-flash"></div>
+<div id="day-banner"></div>
+
+<!-- all da data files-->
+<script src="data/websites.js?v=14"></script>
+<script src="data/messages.js?v=14"></script>
+<script src="data/dialogue.js?v=14"></script>
+<script src="data/files.js?v=14"></script>
+<script src="data/phones.js?v=14"></script>
+<script src="data/endings.js?v=14"></script>
+<script src="game.js?v=14"></script>
+</body>
+</html>

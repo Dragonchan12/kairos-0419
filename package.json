@@ -1,0 +1,19 @@
+{
+  "name": "codejam",
+  "version": "1.0.0",
+  "description": "This is essentially me working on a single project for 2 weeks straight. AI was used as a coding assistant in this project but the majority of the work was done by me. AI was not used for story writing or UI design.",
+  "main": "game.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.64.1"
+  }
+}
